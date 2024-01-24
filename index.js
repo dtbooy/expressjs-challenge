@@ -1,7 +1,6 @@
 // this is the server boot file
-import { app, port } from './config.js';
+import { app, port } from "./config.js";
 
-console.log(port)
+console.log(port);
 
-app.listen(port, ()=> console.log("Server running on port " + port));
-
+app.listen(port, () => console.log("Server running on port " + port));

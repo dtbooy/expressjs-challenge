@@ -1,6 +1,6 @@
 import express from "express";
 // import routers (if any)
-
+import { repeater as repeaterRouter } from "./routers/repeaterRouter.js"; 
 
 
 // create instance of app
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // register routers
-// app.use("/repeater", repeaterRouter)
+app.use("/repeater", repeaterRouter)
 
 app.get("/", (req, res)=> {res.json({message : "Welcome to the Express server"})})
 

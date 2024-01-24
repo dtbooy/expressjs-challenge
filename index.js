@@ -1,6 +1,6 @@
-// this is the server boot file
+// Server boot file
+// import config settings
 import { app, port } from "./config.js";
 
-console.log(port);
-
+// Start up the server
 app.listen(port, () => console.log("Server running on port " + port));

@@ -9,8 +9,8 @@ const OPS = {
 };
 
 calc.get("/:num1/:operator/:num2", (req, res) => {
-  const num1 = parseInt(req.params.num1);
-  const num2 = parseInt(req.params.num2);
+  const num1 = parseFloat(req.params.num1);
+  const num2 = parseFloat(req.params.num2);
   const operator = req.params.operator;
   if (isNaN(num1) || isNaN(num2) || Object.keys(OPS).indexOf(operator) === -1) {
     res.sendStatus(404);

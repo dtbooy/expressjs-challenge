@@ -5,22 +5,35 @@ const poke = express.Router();
 // PokeAPI URL
 const apiBaseURL = "https://pokeapi.co/api/v2/pokemon/";
 
-poke.get("/:pokemon", async (req, res) => {
+//declare validator functions
+const validatePokemon = (req, res, next) => {
+  // fetch the pokemon data from PokeAPI
+  const pokeAPI = fetch(apiBaseURL + req.params.pokemon).then(async (data) => {
+    // parse the response into text format
+    // API responds with "Not Found" in text if pokemon does not exist
+    const resText = await data.text();
 
-    const pokemon = await fetch(apiBaseURL + req.params.pokemon)
-    .then((data) => {
-      return data.json();
-    })
-    // passing the "pokemon not found" response through json will cause an error.
-    // catch will catch this and interperate it as pokemon not found
-    .catch((err) => {
-      return { error: `Pokemon '${req.params.pokemon}' not found` };
-    });
-  if (pokemon.name) {
-    res.json({ pokedexumber: pokemon.id, name: pokemon.name });
-  } else {
-    res.status(400).json(pokemon);
-  }
+    // if response is "Not Found" raise error and pass to error handler
+    if (resText == "Not Found") {
+      next(new Error(`Pokemon '${req.params.pokemon}' not found`));
+    } else {
+    // Convert response text to JSON and attach to req object 
+      req.pokeApiResult = JSON.parse(resText);
+      console.log(Object.keys(req));
+      next();
+    }
+  });
+};
+
+const errorHandlePokemon = (err, req, res, next) => {
+  res.status(400).json({ error: err.message });
+};
+
+poke.get("/:pokemon", validatePokemon, errorHandlePokemon, async (req, res) => {
+  res.json({
+    pokedexumber: req.pokeApiResult.id,
+    name: req.pokeApiResult.name,
+  });
 });
 
-export default poke;
+export { poke };

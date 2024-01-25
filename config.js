@@ -3,7 +3,7 @@ import express from "express";
 import { repeater as repeaterRouter } from "./routers/repeaterRouter.js";
 import { msg as messageRouter } from "./routers/messageRouter.js";
 import { calc as calculatorRouter } from "./routers/calculatorRouter.js";
-import pokemonRouter from "./routers/pokemonRouter.js";
+import { poke as pokemonRouter } from "./routers/pokemonRouter.js";
 
 // create instance of app
 const app = express();

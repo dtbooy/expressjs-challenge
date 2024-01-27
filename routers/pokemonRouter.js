@@ -17,9 +17,8 @@ const validatePokemon = (req, res, next) => {
     if (resText == "Not Found") {
       next(new Error(`Pokemon '${req.params.pokemon}' not found`));
     } else {
-    // Convert response text to JSON and attach to req object 
+      // Convert response text to JSON and attach to req object 
       req.pokeApiResult = JSON.parse(resText);
-      console.log(Object.keys(req));
       next();
     }
   });

@@ -20,6 +20,7 @@ app.use("/message", messageRouter);
 app.use("/calculator", calculatorRouter);
 app.use("/pokemon", pokemonRouter);
 
+// test route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Express server" });
 });
